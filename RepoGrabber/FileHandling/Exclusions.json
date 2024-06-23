@@ -1,0 +1,24 @@
+{
+  "FileExclusions": [
+    "CustomProjectManagerLog.txt",
+    "CustomProjectManager.bat",
+    "CustomProjectManager.ps1",
+    "Release_Debug.ps1",
+    "writeBuildInfo.ps1",
+    "BuildCustomCNC.bat",
+    "BuildCustomCNC.ps1"
+  ],
+  "FileTypeInclusions": [
+    ".src",
+    ".h",
+    ".iss",
+    ".mdf",
+    ".xml",
+    ".md"
+  ],
+  "FolderExclusions": [
+    "CustomProjectManager",
+    ".git",
+    ".vscode"
+  ]
+}

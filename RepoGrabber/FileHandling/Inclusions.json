@@ -1,0 +1,14 @@
+{
+  "FileTypeInclusions": [
+    ".src",
+    ".h",
+    ".iss",
+    ".mdf",
+    ".xml",
+    ".md",
+    ".txt",
+    ".ipynb",
+    ".py",
+    ".ps1"
+  ]
+}
