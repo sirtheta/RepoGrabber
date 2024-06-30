@@ -34,7 +34,7 @@ namespace RepoGrabber
       // Get exclusions from JSON
       Exclusions exclusions = FileHelper.ReadExclusionsFromFile(exclusionFile);
       Inclusions inclusions = FileHelper.ReadInclusionsFromFile(inclusionFile);
-      Console.WriteLine("In- and Exclusionlist loaded");
+      Console.WriteLine("In- and Exclusion list loaded...");
 
       // Get the relevant content from each branch
       List<BranchContent> branchContents = new();
@@ -53,11 +53,19 @@ namespace RepoGrabber
           HeadHash = hash,
           BranchName = branch.BranchName,
           Files = FileReader.ReadFiles(directory, exclusions, inclusions),
-          ReadmeContent = FileReader.ReadFileContent(readmePath)
+          ReadmeContent = FileReader.ReadMarkdownFileContent(readmePath)
         });
+        Console.WriteLine($"Branch {branch.BranchName} prepared to load into database.");
       }
 
-      sqliteHelper.UpdateBranchContent(branchContents);
+      if (branchContents.Count > 0)
+      {
+        sqliteHelper.UpdateBranchContent(branchContents);
+      }
+      else
+      {
+        Console.WriteLine("No changes to add to the database detected!");
+      }
     }
 
     private static bool HelpRequired(string param)

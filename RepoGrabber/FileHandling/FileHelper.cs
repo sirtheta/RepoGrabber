@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace RepoGrabber.FileHandling
 {
@@ -65,6 +67,41 @@ namespace RepoGrabber.FileHandling
         Console.WriteLine(e.Message);
       }
       return null;
+    }
+
+    /// <summary>
+    /// Convert an image to base64
+    /// </summary>
+    /// <param name="imagePath"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public static string ImageToBase64(string imagePath)
+    {
+      try
+      {
+        using (Image image = Image.FromFile(imagePath))
+        {
+          using (MemoryStream ms = new MemoryStream())
+          {
+            ImageFormat format = Path.GetExtension(imagePath).ToLower() switch
+            {
+              ".png" => ImageFormat.Png,
+              ".jpg" => ImageFormat.Jpeg,
+              ".jpeg" => ImageFormat.Jpeg,
+              _ => throw new ArgumentException("Unsupported image format.")
+            };
+
+            image.Save(ms, format);
+            byte[] imageBytes = ms.ToArray();
+            return Convert.ToBase64String(imageBytes);
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Error converting image to base64: {ex.Message}");
+        return null;
+      }
     }
   }
 }
